@@ -1,3 +1,5 @@
+import photos from './photos.js';
+
 function generateId(){
   return Math.random().toString(36).substring(2, 9);
 }
@@ -15,7 +17,7 @@ export function createGameGrid(dim = 4) {
     id: generateId()
   })));
 
-  let values = Array.from({length: dim * dim}, (_, i) => (i - (i % 2)) / 2 + 1);
+  let values = [...photos, ...photos];
   shuffleArray(values);
 
   for(let row of grid){

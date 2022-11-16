@@ -10,7 +10,8 @@ function Card({card, isFlipped, flipCard}) {
   return (
     <div className={clsx('card', isFlipped && 'isFlipped')}>
         <div className="card__front" onClick={flip}></div>
-        <div className="card__back">{card.value}</div>
+        <div className="card__back" style={{backgroundImage: `url(${card.value})`}}>
+        </div>
     </div>
   )
 }
