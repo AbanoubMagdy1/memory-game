@@ -1,0 +1,15 @@
+.game{
+    width: 30rem;
+    margin: 2rem 0;
+
+    &__row{
+        display: flex;
+        gap: .5rem;
+        width: 100%;
+        margin-bottom: 1rem;
+
+        > div {
+            flex-grow: 1;
+        }
+    }
+}
