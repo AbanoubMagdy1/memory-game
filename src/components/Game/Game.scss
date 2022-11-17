@@ -1,6 +1,12 @@
 .game{
     width: 30rem;
-    margin: 2rem 0;
+    margin: 2rem auto;
+    text-align: center;
+
+    h1{
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
 
     &__row{
         display: flex;

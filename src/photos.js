@@ -7,4 +7,4 @@ export default [
     "https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492__340.jpg",
     "https://cdn.pixabay.com/photo/2014/10/01/10/44/animal-468228__340.jpg",
     "https://cdn.pixabay.com/photo/2015/04/10/01/41/fox-715588__340.jpg",
-]
+];
