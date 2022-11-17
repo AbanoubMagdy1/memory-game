@@ -35,6 +35,10 @@ function Game () {
     return temporary.some(c => c === card) || permanent.some(c => c === card)
   }
 
+  function isRemoved (card) {
+    return permanent.some(c => c === card)
+  }
+
   return (<>
     <Navbar restart={restart}/>
     <div className="game">
@@ -45,6 +49,7 @@ function Game () {
             key={card.id}
             card={card}
             isFlipped={isFlipped(card)}
+            isRemoved={isRemoved(card)}
             flipCard={onCardClick}
           />))}
         </div>
