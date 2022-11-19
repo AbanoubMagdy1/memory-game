@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createGameGrid } from '../../utils'
 import Card from '../Card/Card'
 import Navbar from '../Navbar/Navbar'
@@ -8,7 +8,7 @@ import './Game.scss'
 import Modal from '../Modal/Modal'
 
 function Game () {
-  const [cards, setCards] = React.useState(createGameGrid())
+  const [cards, setCards] = useState(createGameGrid())
   const { arr: temporary, push: pushTemporary, clear: clearTemporary } = useArray([])
   const { arr: permanent, push: pushPermanent, clear: clearPermanent } = useArray([])
   const [isOpen, toggle] = useToggle(false)
