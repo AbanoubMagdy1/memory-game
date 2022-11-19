@@ -1,0 +1,35 @@
+.modal {
+    position: absolute;
+    z-index: 100;
+    inset: 0;
+    background-color: rgba(0, 0, 0, .20);
+    opacity: 0;
+    pointer-events: none;
+    transition: .5s opacity;
+
+    &.open{
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    &__body{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 5px;
+        min-height: 200px;
+
+        .btn-close{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: transparent;
+
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+}

@@ -1,17 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { createGameGrid } from '../../utils'
 import Card from '../Card/Card'
 import Navbar from '../Navbar/Navbar'
 import useArray from '../../customHooks/useArray'
+import useToggle from '../../customHooks/useToggle'
 import './Game.scss'
+import Modal from '../Modal/Modal'
 
 function Game () {
   const [cards, setCards] = React.useState(createGameGrid())
   const { arr: temporary, push: pushTemporary, clear: clearTemporary } = useArray([])
   const { arr: permanent, push: pushPermanent, clear: clearPermanent } = useArray([])
+  const [isOpen, toggle] = useToggle(false)
+  const trials = useRef(0)
 
   useEffect(function handleMatching () {
     if (temporary.length === 2) {
+      trials.value++
       setTimeout(() => {
         console.log(temporary)
         if (temporary[0].value === temporary[1].value) {
@@ -43,6 +48,7 @@ function Game () {
 
   return (<>
     <Navbar restart={restart}/>
+    <Modal isOpen={isOpen} toggle={toggle}></Modal>
     <div className="game">
       <h1>Memory Game</h1>
       {cards.map((row, rowIdx) => (
