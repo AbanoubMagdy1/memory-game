@@ -1,34 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { createGameGrid } from '../../utils'
 import Card from '../Card/Card'
 import Navbar from '../Navbar/Navbar'
+import useArray from '../../customHooks/useArray'
 import './Game.scss'
 
 function Game () {
   const [cards, setCards] = React.useState(createGameGrid())
-  const [temporary, setTemporary] = useState([])
-  const [permanent, setPermanent] = useState([])
+  const { arr: temporary, push: pushTemporary, clear: clearTemporary } = useArray([])
+  const { arr: permanent, push: pushPermanent, clear: clearPermanent } = useArray([])
 
   useEffect(function handleMatching () {
     if (temporary.length === 2) {
       setTimeout(() => {
+        console.log(temporary)
         if (temporary[0].value === temporary[1].value) {
-          setPermanent([...permanent, ...temporary])
+          pushPermanent(...temporary)
         }
-        setTemporary([])
+        clearTemporary()
       }, 1000)
     }
   }, [temporary])
 
   function onCardClick (card) {
     if (temporary.length === 2) return
-    setTemporary([...temporary, card])
+    pushTemporary(card)
   }
 
   function restart () {
     setCards(createGameGrid())
-    setPermanent([])
-    setTemporary([])
+    clearPermanent([])
+    clearTemporary([])
   }
 
   function isFlipped (card) {

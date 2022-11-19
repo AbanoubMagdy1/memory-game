@@ -3,8 +3,8 @@ import { useState } from 'react'
 export default function useArray (initialValue = []) {
   const [arr, setArr] = useState(initialValue)
 
-  function push (val) {
-    setArr([...arr, val])
+  function push (...values) {
+    setArr([...arr, ...values])
   }
 
   function pop (comparator) {
@@ -15,5 +15,9 @@ export default function useArray (initialValue = []) {
     setArr([...arr.sort(comparator)])
   }
 
-  return { arr, push, pop, sort }
+  function clear () {
+    setArr([])
+  }
+
+  return { arr, setArr, push, pop, sort, clear }
 }
