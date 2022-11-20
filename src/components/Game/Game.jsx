@@ -7,8 +7,10 @@ import useToggle from '../../customHooks/useToggle'
 import './Game.scss'
 import Modal from '../Modal/Modal'
 
+const dimension = 4
+
 function Game () {
-  const [cards, setCards] = useState(createGameGrid())
+  const [cards, setCards] = useState(createGameGrid(dimension))
   const { arr: temporary, push: pushTemporary, clear: clearTemporary } = useArray([])
   const { arr: permanent, push: pushPermanent, clear: clearPermanent } = useArray([])
   const [isOpen, toggle] = useToggle(false)
@@ -16,9 +18,9 @@ function Game () {
 
   useEffect(function handleMatching () {
     if (temporary.length === 2) {
-      trials.value++
+      trials.current++
+      console.log(trials)
       setTimeout(() => {
-        console.log(temporary)
         if (temporary[0].value === temporary[1].value) {
           pushPermanent(...temporary)
         }
@@ -26,6 +28,12 @@ function Game () {
       }, 1000)
     }
   }, [temporary])
+
+  useEffect(function handleWin () {
+    if (permanent.length === dimension * dimension) {
+      toggle()
+    }
+  }, [permanent])
 
   function onCardClick (card) {
     if (temporary.length === 2) return
@@ -36,6 +44,7 @@ function Game () {
     setCards(createGameGrid())
     clearPermanent([])
     clearTemporary([])
+    trials.current = 0
   }
 
   function isFlipped (card) {
@@ -48,7 +57,9 @@ function Game () {
 
   return (<>
     <Navbar restart={restart}/>
-    <Modal isOpen={isOpen} toggle={toggle}></Modal>
+    <Modal isOpen={isOpen} toggle={toggle}>
+      <h2>You finished after {trials.current} trials.</h2>
+    </Modal>
     <div className="game">
       <h1>Memory Game</h1>
       {cards.map((row, rowIdx) => (
