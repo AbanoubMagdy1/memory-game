@@ -12,10 +12,14 @@
         display: flex;
         gap: .5rem;
         width: 100%;
-        margin-bottom: 1rem;
+        margin-bottom: .5rem;
 
         > div {
             flex-grow: 1;
         }
+    }
+
+    &__show-btn{
+        margin-bottom: 1rem;
     }
 }

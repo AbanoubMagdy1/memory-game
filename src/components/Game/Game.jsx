@@ -11,15 +11,15 @@ const dimension = 4
 
 function Game () {
   const [cards, setCards] = useState(createGameGrid(dimension))
+  const [isShown, toggleShown] = useToggle(false)
   const { arr: temporary, push: pushTemporary, clear: clearTemporary } = useArray([])
   const { arr: permanent, push: pushPermanent, clear: clearPermanent } = useArray([])
-  const [isOpen, toggle] = useToggle(false)
+  const [isOpen, toggleOpen] = useToggle(false)
   const trials = useRef(0)
 
   useEffect(function handleMatching () {
     if (temporary.length === 2) {
       trials.current++
-      console.log(trials)
       setTimeout(() => {
         if (temporary[0].value === temporary[1].value) {
           pushPermanent(...temporary)
@@ -31,7 +31,7 @@ function Game () {
 
   useEffect(function handleWin () {
     if (permanent.length === dimension * dimension) {
-      toggle()
+      toggleOpen()
     }
   }, [permanent])
 
@@ -48,20 +48,37 @@ function Game () {
   }
 
   function isFlipped (card) {
-    return temporary.some(c => c === card) || permanent.some(c => c === card)
+    return isShown || temporary.some(c => c === card) || permanent.some(c => c === card)
   }
 
   function isRemoved (card) {
     return permanent.some(c => c === card)
   }
 
+  function restartAndClose () {
+    restart()
+    toggleOpen()
+  }
+
   return (<>
     <Navbar restart={restart}/>
-    <Modal isOpen={isOpen} toggle={toggle}>
-      <h2>You finished after {trials.current} trials.</h2>
+
+    <Modal isOpen={isOpen} toggle={toggleOpen}>
+      <h2 style={{ marginBottom: '.5rem' }}>
+        You finished after {trials.current} trials.
+      </h2>
+      <button onClick={restartAndClose} >Restart</button>
     </Modal>
+
     <div className="game">
       <h1>Memory Game</h1>
+
+      <div className='game__show-btn'>
+        <button onClick={toggleShown} disabled={trials.current > 0}>
+          {isShown === true ? 'Hide' : 'Show' } Cards
+        </button>
+      </div>
+
       {cards.map((row, rowIdx) => (
         <div className="game__row" key={rowIdx}>
           {row.map((card, colIdx) => (<Card
