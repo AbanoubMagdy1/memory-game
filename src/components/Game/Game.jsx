@@ -74,7 +74,7 @@ function Game () {
       <h1>Memory Game</h1>
 
       <div className='game__show-btn'>
-        <button onClick={toggleShown} disabled={trials.current > 0}>
+        <button onClick={toggleShown} disabled={trials.current > 0 || temporary.length}>
           {isShown === true ? 'Hide' : 'Show' } Cards
         </button>
       </div>
