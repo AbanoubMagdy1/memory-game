@@ -11,9 +11,10 @@ const dimension = 4
 
 function Game () {
   const [cards, setCards] = useState(createGameGrid(dimension))
-  const [isShown, toggleShown] = useToggle(false)
   const { arr: temporary, push: pushTemporary, clear: clearTemporary } = useArray([])
   const { arr: permanent, push: pushPermanent, clear: clearPermanent } = useArray([])
+
+  const [isShown, toggleShown] = useToggle(false)
   const [isOpen, toggleOpen] = useToggle(false)
   const trials = useRef(0)
 
@@ -42,8 +43,8 @@ function Game () {
 
   function restart () {
     setCards(createGameGrid())
-    clearPermanent([])
-    clearTemporary([])
+    clearPermanent()
+    clearTemporary()
     trials.current = 0
   }
 
